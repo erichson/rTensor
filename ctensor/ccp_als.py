@@ -1,3 +1,8 @@
+#*************************************************************************
+#***        Author: N. Benjamin Erichson <nbe@st-andrews.ac.uk>        ***
+#***                              <2016>                               ***
+#*************************************************************************    
+
 import numpy as np
 import scipy as sci
 import timeit
@@ -9,13 +14,13 @@ from .ctools import kr, _rT, _cT, _compress, _sign_flip, _eiginit, _normalizatio
 
 def ccp_als(X, r=None, c=True, p=10, q=1, tol=1E-5, maxiter=500, trace=True):
     """
-    Compressed CP decomposition.
+    Randomized CP Decomposition using the Alternating Least Squares Method.
     
-    Given a tensor X, the best rank-r CP model is estimated using the 
-    alternating least-squares algorithm.
-    If `c=True` the input tensor is compressed first using a randomized matrix
-    algorithm. In addition a regularizatin parameter `nu` can be defined, to
-    prevent singularities.
+    Given a tensor X, the best rank-R CP model is estimated using the 
+    alternating least-squares method.
+    If `c=True` the input tensor is compressed using the randomized 
+    QB-decomposition.
+
     
     Parameters
     ----------
@@ -25,22 +30,22 @@ def ccp_als(X, r=None, c=True, p=10, q=1, tol=1E-5, maxiter=500, trace=True):
     r : int
         `r` denotes the number of components to compute.
 
-    c : bool `{'True', 'False'}`, optional (default c=True)
+    c : bool `{'True', 'False'}`, optional (default `c=True`)
         Whether or not to compress the tensor.         
 
-    p : int, optional (default p=0)
+    p : int, optional (default `p=10`)
         `p` sets the oversampling parameter.
 
-    q : int, optional (default q=0)
-        `q` sets the number of power iterations.        
+    q : int, optional (default `q=2`)
+        `q` sets the number of normalized power iterations.        
         
-    tol : float, optional (default tol=1E-4)
+    tol : float, optional (default `tol=1E-5`)
         Stopping tolerance for reconstruction error.
         
-    maxiter : int, optional (default maxiter=500)
+    maxiter : int, optional (default `maxiter=500`)
         Maximum number of iterations to perform before exiting.
 
-    trace : bool `{'True', 'False'}`, optional (default trace=True)
+    trace : bool `{'True', 'False'}`, optional (default `trace=True`)
         Display progress.
 
 
@@ -67,10 +72,6 @@ def ccp_als(X, r=None, c=True, p=10, q=1, tol=1E-5, maxiter=500, trace=True):
     http://onlinelibrary.wiley.com/doi/10.1002/cem.1236/abstract
 
     """
-    #*************************************************************************
-    #***        Author: N. Benjamin Erichson <nbe@st-andrews.ac.uk>        ***
-    #***                              <2016>                               ***
-    #*************************************************************************    
 
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Error catching
