@@ -15,8 +15,8 @@
 
 import numpy as np
 from numpy import dot, ones, array, outer, zeros, prod, sum
-from sktensor.core import khatrirao, tensor_mixin
-from sktensor.dtensor import dtensor
+from .core import khatrirao, tensor_mixin
+from .dtensor import dtensor
 
 __all__ = [
     'ktensor',

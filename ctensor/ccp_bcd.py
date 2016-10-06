@@ -81,8 +81,8 @@ def ccp_bcd(X, r=None, c=True, nu=0, p=10, q=1, tol=1E-5, maxiter=500, trace=Tru
     if len(X.shape) < 3:
         raise ValueError("Array with ndim == 3 expected.")
 
-    if len(X.shape) > 3:
-        raise ValueError("Array with ndim >= 3 not supported.")
+    #if len(X.shape) > 3:
+    #    raise ValueError("Array with ndim >= 3 not supported.")
 
     
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,7 +126,8 @@ def ccp_bcd(X, r=None, c=True, nu=0, p=10, q=1, tol=1E-5, maxiter=500, trace=Tru
     # repeat until convergences
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
     R = X 
-    lamb = np.zeros(r)    
+    lamb = np.zeros(r)
+    itertol = 0    
     for l in xrange(r):
 
             normR = sci.linalg.norm(R)
@@ -162,9 +163,10 @@ def ccp_bcd(X, r=None, c=True, nu=0, p=10, q=1, tol=1E-5, maxiter=500, trace=Tru
                 normresidual = normR**2 + P.norm()**2 - 2 * P.innerprod(dtensor(R))
                 fit = (1 - (normresidual / normR ** 2)) * rdiff**2
                 fitchange = np.abs(fitold - fit)
-        
+        	
+		itertol += 1
                 if trace==True:
-                    print('Iteration: %s fit: %s, fitchange: %s' %(itr, fit, fitchange))
+                    print('Iteration: %s fit: %s, fitchange: %s' %(itertol, fit, fitchange))
         
                 if (fitchange < tol):
                     break
