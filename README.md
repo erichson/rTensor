@@ -4,16 +4,14 @@ Randomized CP Decomposition
 The CP decomposition is an equation-free, data-driven tensor decomposition that is capable of providing 
 accurate reconstructions of multi-mode data arising in signal processing, computer vision, neuroscience and elsewhere. 
 
-The ctensor package includes the following implementations
+The ctensor package includes the following tensor decomposition routines:
 * CP using the alternating least squares method (ALS)
 * CP using the block coordinate descent method (BCD)
 * Both methods can be used either using a deterministic or a fast randomized algorithm.
+* The package is build ontop of the [scikit-tensor package](https://github.com/mnick/scikit-tensor)
 
-
-The following illustrates the performance gains of the randomized accelerated CP decomposition routines.
+The following figure illustrates the performance of the randomized accelerated CP decomposition routines.
 ![toy](https://raw.githubusercontent.com/Benli11/data/master/img/tensor_speed.png)
-
-
 
 
 Installation
@@ -42,7 +40,7 @@ First, lets create some toy data:
 
 ```python
 X = toydata(m=250, t=150, background=0, display=1)
-from ctensro import toydata
+from ctensor import toydata
 ```
 This function returns a array of dimension `250x250x150`, where the last index denotes time. 
 The underlying spatial modes and time dynamics of the data are shown in the following figure. 
@@ -70,3 +68,10 @@ A,B,C = P.U
 ```
 The next figure shows the reconstructed modes and time dynamics, which faithfully capture the underlying system. 
 ![toy](https://raw.githubusercontent.com/Benli11/data/master/img/tensor_toy_data_rbcd.png)
+
+References
+*************
+* [N. Benjamin Erichson, et al. “Randomized CP Tensor Decomposition.” (2016)](https://www.researchgate.net/publication/308928828_Randomized_CP_Tensor_Decomposition)
+* [Tamara G. Kolda and Brett W. Bader “Tensor Decompositions and Applications.” (2009)](http://epubs.siam.org/doi/pdf/10.1137/07070111X)
+* [Nathan Halko, et al. “Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions.” (2011)](https://arxiv.org/abs/0909.4061)
+* [N. Benjamin Erichson, et al. “Randomized Matrix Decompositions using R.” (2016)](http://arxiv.org/abs/1608.02148)
