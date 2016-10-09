@@ -39,8 +39,8 @@ from ctensor import dtensor, ktensor
 First, lets create some toy data:
 
 ```python
-X = toydata(m=250, t=150, background=0, display=1)
 from ctensor import toydata
+X = toydata(m=250, t=150, background=0, display=1)
 ```
 This function returns a array of dimension `250x250x150`, where the last index denotes time. 
 The underlying spatial modes and time dynamics of the data are shown in the following figure. 
